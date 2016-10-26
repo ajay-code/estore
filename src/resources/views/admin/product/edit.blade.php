@@ -19,7 +19,9 @@
                 <div class="col-sm-6 col-md-6" id="Product-Input-Field">
                     <div class="form-group{{ $errors->has('product_name') ? ' has-error' : '' }}">
                         <label>Product Name</label>
-                        <input type="text" class="form-control" name="product_name" value="{{ Request::old('product_name') ? : $product->product_name }}" placeholder="Edit New Product">
+                        <input type="text" class="form-control" name="product_name"
+                               value="{{ Request::old('product_name') ? : $product->product_name }}"
+                               placeholder="Edit New Product">
                         @if($errors->has('product_name'))
                             <span class="help-block">{{ $errors->first('product_name') }}</span>
                         @endif
@@ -44,9 +46,12 @@
                 <div class="col-sm-6 col-md-6" id="Product-Input-Field">
                     <div class="form-group{{ $errors->has('price') ? ' has-error' : '' }}">
                         <label>Price</label>
+
                         <div class="input-group">
                             <div class="input-group-addon"><i class="material-icons">attach_money</i></div>
-                            <input type="text" class="form-control" name="price" value="{{ Request::old('price') ? : $product->price }}" placeholder="Edit Product Price">
+                            <input type="text" class="form-control" name="price"
+                                   value="{{ Request::old('price') ? : $product->price }}"
+                                   placeholder="Edit Product Price">
                         </div>
                         @if($errors->has('price'))
                             <span class="help-block">{{ $errors->first('price') }}</span>
@@ -58,9 +63,12 @@
                 <div class="col-sm-6 col-md-6" id="Product-Input-Field">
                     <div class="form-group{{ $errors->has('reduced_price') ? ' has-error' : '' }}">
                         <label>Reduced Price</label>
+
                         <div class="input-group">
                             <div class="input-group-addon"><i class="material-icons">attach_money</i></div>
-                            <input type="text" class="form-control" name="reduced_price" value="{{ Request::old('reduced_price') ? : $product->reduced_price }}" placeholder="Edit Product Reduced Price">
+                            <input type="text" class="form-control" name="reduced_price"
+                                   value="{{ Request::old('reduced_price') ? : $product->reduced_price }}"
+                                   placeholder="Edit Product Reduced Price">
                         </div>
                         @if($errors->has('reduced_price'))
                             <span class="help-block">{{ $errors->first('reduced_price') }}</span>
@@ -73,13 +81,14 @@
                     <div class="col-sm-6 col-md-6" id="Product-Input-Field">
                         <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
                             <label>Parent Category</label>
-                            <select class="form-control" name="category" id="category" data-url="{{ url('api/dropdown')}}">
+                            <select class="form-control" name="category" id="category"
+                                    data-url="{{ url('api/dropdown')}}">
                                 <option value=""></option>
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+                                    <option value="{{ $category->id }}" {{ $parentId == $category->id ? "selected" : "" }} >{{ $category->category }}</option>
                                 @endforeach
                             </select>
-                             @if($errors->has('category'))
+                            @if($errors->has('category'))
                                 <span class="help-block">{{ $errors->first('category') }}</span>
                             @endif
                         </div>
@@ -90,7 +99,13 @@
                         <div class="form-group{{ $errors->has('cat_id') ? ' has-error' : '' }}">
                             <label>Sub-Category Category</label>
                             <select class="form-control" name="cat_id" id="sub_category">
+                                @foreach($subCategories as $subCategory)
+                                    @if($subCategory->parent_id == $parentId)
+                                        <option value="{{ $subCategory->id }}" {{ $product->cat_id == $subCategory->id ? "selected" : "" }} >{{ $subCategory->category }}</option>
+                                    @endif
+                                @endforeach
                                 <option value=""></option>
+
                             </select>
                             @if($errors->has('cat_id'))
                                 <span class="help-block">{{ $errors->first('cat_id') }}</span>
@@ -104,14 +119,17 @@
                 <div class="col-sm-3 col-md-3" id="Product-Input-Field">
                     <div class="form-group">
                         <label>Featured Product</label><br>
-                        <input type="checkbox" name="featured" value="1" {{ $product->featured === 1 ? "checked=checked" : "" }}>
+                        <input type="checkbox" name="featured"
+                               value="1" {{ $product->featured === 1 ? "checked=checked" : "" }}>
                     </div>
                 </div>
 
                 <div class="col-sm-3 col-md-3" id="Product-Input-Field">
                     <div class="form-group{{ $errors->has('product_qty') ? ' has-error' : '' }}">
                         <label>Product Quantity</label>
-                        <input type="number" class="form-control" name="product_qty" value="{{ Request::old('product_qty') ? : $product->product_qty }}" placeholder="Edit Product Quantity" min="0">
+                        <input type="number" class="form-control" name="product_qty"
+                               value="{{ Request::old('product_qty') ? : $product->product_qty }}"
+                               placeholder="Edit Product Quantity" min="0">
                         @if($errors->has('product_qty'))
                             <span class="help-block">{{ $errors->first('product_qty') }}</span>
                         @endif
@@ -122,8 +140,12 @@
                 <div class="col-sm-6 col-md-6" id="Product-Input-Field">
                     <div class="form-group{{ $errors->has('product_sku') ? ' has-error' : '' }}">
                         <label>Product SKU</label>
-                        <input type="text" class="form-control" name="product_sku"  id="product_sku" value="{{ Request::old('product_sku') ? : $product->product_sku }}" placeholder="Generate Product SKU" readonly="readonly">
-                        <button class="btn btn-info btn-sm waves-effect waves-light" onclick="GetRandom()" type="button" id="product_sku">generate</button>
+                        <input type="text" class="form-control" name="product_sku" id="product_sku"
+                               value="{{ Request::old('product_sku') ? : $product->product_sku }}"
+                               placeholder="Generate Product SKU" readonly="readonly">
+                        <button class="btn btn-info btn-sm waves-effect waves-light" onclick="GetRandom()" type="button"
+                                id="product_sku">generate
+                        </button>
                         @if($errors->has('product_sku'))
                             <span class="help-block">{{ $errors->first('product_sku') }}</span>
                         @endif
@@ -132,8 +154,10 @@
 
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">DESCRIPTION</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">SPECS</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                              data-toggle="tab">DESCRIPTION</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">SPECS</a>
+                    </li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -181,10 +205,10 @@
         </div> <!-- Close col-md-12 -->
 
     </div>  <!-- Close container -->
-@endsection
+    @endsection
 
-@section('footer')
-        <!-- Include Froala Editor JS files. -->
+    @section('footer')
+            <!-- Include Froala Editor JS files. -->
     <script type="text/javascript" src="{{ asset('src/public/js/libs/froala_editor.min.js') }}"></script>
 
     <!-- Include Plugins. -->
@@ -200,7 +224,7 @@
 
 
     <script>
-        $(function() {
+        $(function () {
             $('#product-description').froalaEditor({
                 charCounterMax: 2500,
                 height: 500,
@@ -211,7 +235,7 @@
     </script>
 
     <script>
-        $(function() {
+        $(function () {
             $('#product_spec').froalaEditor({
                 charCounterMax: 3500,
                 height: 500,

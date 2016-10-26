@@ -25,8 +25,9 @@
                 @if ($products->photos->count() > 7)
                     <p class="text-center"><b>Cannot upload more than 8 photos for one for One Product. Delete some photos to upload other photos.</b></p><br><br>
                 @else
-                    <form method="POST" action="/store/admin/products/{{ $products->id }}/photo" class="dropzone" id="addProductImages" enctype="multipart/form-data">
-                        {{ csrf_field() }}
+                    <form method="POST" action="{{ $products->id }}/photo" class="dropzone" id="addProductImages" enctype="multipart/form-data">
+                        {!! csrf_field() !!}
+                        {{--<button type="submit" class="btn btn-info btn-sm waves-effect waves-light"> Upload </button>--}}
                     </form>
                     <p class="text-center"><span class="red-text">*</span> Only 8 photos will show up per product on products page</p>
                 @endif
@@ -40,17 +41,17 @@
                             <div class="col-xs-6 col-sm-3 col-md-3 gallery_image">
                                 <label>{{ $photo->id }}</label>
                                 @if (Auth::user()->id == 2)
-                                    <a href="/store/{{ $photo->path }}" data-lity>
-                                        <img src="/store/{{ $photo->thumbnail_path }}" alt="" data-id="{{ $photo->id }}">
+                                    <a href="{{ asset($photo->path) }}" data-lity>
+                                        <img src="{{ asset($photo->thumbnail_path) }}" alt="" data-id="{{ $photo->id }}">
                                     </a>
                                 @else
                                     <div class="img-wrap">
-                                        <form method="post" action="/store/admin/products/photos/{{ $photo->id }}">
+                                        <form method="post" action="photos/{{ $photo->id }}">
                                             {!! csrf_field() !!}
                                             <input type="hidden" name="_method" value="DELETE">
                                             <button type="submit" class="close">&times;</button>
-                                            <a href="/store/{{ $photo->path }}" data-lity>
-                                                <img src="/store/{{ $photo->thumbnail_path }}" alt="" data-id="{{ $photo->id }}">
+                                            <a href="/store/{{ asset($photo->path) }}" data-lity>
+                                                <img src="{{ asset($photo->thumbnail_path) }}" alt="" data-id="{{ $photo->id }}">
                                             </a>
                                         </form>
                                     </div>
@@ -82,7 +83,7 @@
             <h6>Which Image do you want featured as the main Product Image for: {{ $products->product_name }}?</h6><br>
 
 
-            <form method="post" action="/store/admin/products/add/featured/{{ $products->id }}">
+            <form method="post" action="add/featured/{{ $products->id }}">
                 {!! csrf_field() !!}
                 @foreach($products->photos as $set)
                         <div class="form-group{{ $errors->has('featured') ? ' has-error' : '' }}">

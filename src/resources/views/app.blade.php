@@ -9,6 +9,7 @@
         <meta name=description content="A medium sized e-commerce shopping cart made by David Trushkov. Made using Laravel 5.2" />
         <meta name="keywords" content="shopping, ecommerce, store, electronics, electronics store, david, david trushkov, github, laravel, laravel 5, laravel 5.2" />
         <meta name="author" content="David Trushkov" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="shortcut icon" href="{!! asset('/src/public/images/slider/fav-icon.png') !!}" />
 
         <title>E-commerce Store</title>

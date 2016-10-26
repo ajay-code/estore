@@ -22,4 +22,13 @@ trait CategoryTrait {
         return Category::whereNull('parent_id')->get();
     }
 
+    public function getParentCategory($cat_id){
+        $subCat = Category::where('id', $cat_id)->first();
+        return $subCat->parent_id;
+    }
+
+    public function getSubCategories(){
+        return Category::whereNotNull('parent_id')->get();
+    }
+
 }

@@ -17,12 +17,12 @@
                 <div class="col-xs-12 col-sm-12 col-md-8 gallery">
                     @if ($product->photos->count() === 0)
                         <p>No Images found for this Product.</p><br>
-                        <img src="/store/src/public/images/no-image-found.jpg" alt="No Image Found Tag" id="Product-similar-Image">
+                        <img src="{{asset('src/public/images/no-image-found.jpg')}}" alt="No Image Found Tag" id="Product-similar-Image">
                     @else
                         @foreach ($product->photos->slice(0, 8) as $photo)
                             <div class="col-xs-6 col-sm-4 col-md-3 gallery_image text-center">
-                                <a href="/store/{{ $photo->path }}" data-lity>
-                                    <img src="/store/{{ $photo->thumbnail_path }}" alt="Photo ID: {{ $photo->id  }}" data-id="{{ $photo->id }}" class="img-thumbnail">
+                                <a href="{{ asset($photo->path) }}" data-lity>
+                                    <img src="{{ asset($photo->thumbnail_path) }}" alt="Photo ID: {{ $photo->id  }}" data-id="{{ $photo->id }}" class="img-thumbnail">
                                 </a>
                             </div>
                         @endforeach
@@ -47,7 +47,7 @@
                         <h5 class="text-center red-text">Sold Out</h5>
                         <p class="text-center"><b>Available: {{ $product->product_qty }}</b></p>
                     @else
-                        <form action="/store/cart/add" method="post" name="add_to_cart">
+                        <form action="cart/add" method="post" name="add_to_cart">
                             {!! csrf_field() !!}
                             <input type="hidden" name="product" value="{{$product->id}}" />
                             <label>QTY</label>

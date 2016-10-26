@@ -34,6 +34,8 @@ class ProductsController extends Controller {
         // Count all Products in Products Table
         $productCount = Product::all()->count();
 
+
+
         // From Traits/CartTrait.php
         // ( Count how many items in Cart for signed in user )
         $cart_count = $this->countProductsInCart();
@@ -153,16 +155,22 @@ class ProductsController extends Controller {
         // ( This is to populate the parent category drop down in create product page )
         $categories = $this->parentCategory();
 
+        // Get all sub Categories
+        $subCategories = $this->getSubCategories();
+
         // From Traits/BrandAll.php
         // Get all the Brands
         $brands = $this->BrandsAll();
+
+        // Get Parent Category
+        $parentId = $this->getParentCategory($product->cat_id);
 
         // From Traits/CartTrait.php
         // ( Count how many items in Cart for signed in user )
         $cart_count = $this->countProductsInCart();
 
         // Return view with products and categories
-        return view('admin.product.edit', compact('product', 'categories', 'brands', 'cart_count'));
+        return view('admin.product.edit', compact('product', 'categories', 'brands', 'cart_count', 'parentId', 'subCategories'));
 
     }
 
