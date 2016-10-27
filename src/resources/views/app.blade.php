@@ -6,9 +6,9 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <meta name=description content="A medium sized e-commerce shopping cart made by David Trushkov. Made using Laravel 5.2" />
-        <meta name="keywords" content="shopping, ecommerce, store, electronics, electronics store, david, david trushkov, github, laravel, laravel 5, laravel 5.2" />
-        <meta name="author" content="David Trushkov" />
+        <meta name=description content="A medium sized e-commerce shopping cart made by Ajay and Sukhjeet. Made using Laravel 5.2" />
+        <meta name="keywords" content="shopping, ecommerce, store, electronics, electronics store, Ajay and Sukhjeet, github, laravel, laravel 5, laravel 5.2" />
+        <meta name="author" content="Ajay and Sukhjeet" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="shortcut icon" href="{!! asset('/src/public/images/slider/fav-icon.png') !!}" />
 
@@ -172,7 +172,7 @@
         });
     </script>
     <script>
-        new WOW().init();
+//        new WOW().init();
     </script>
 
     @include('partials.flash')

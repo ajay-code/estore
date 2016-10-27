@@ -90,12 +90,12 @@
                         <div class="col-md-4 text-center hoverable">
                             <a href="{{ route('show.product', $product->product_name) }}">
                             @if ($product->photos->count() === 0)
-                                    <img src="/store/src/public/images/no-image-found.jpg" alt="No Image Found Tag" id="Product-similar-Image">
+                                    <img src="{{ asset('src/public/images/no-image-found.jpg') }}" alt="No Image Found Tag" id="Product-similar-Image">
                             @else
                                 @if ($product->featuredPhoto)
-                                    <img src="/store/{{ $product->featuredPhoto->thumbnail_path }}" alt="Photo ID: {{ $product->featuredPhoto->id }}" />
+                                    <img src="{{ asset($product->featuredPhoto->thumbnail_path) }}" alt="Photo ID: {{ $product->featuredPhoto->id }}" />
                                 @elseif(!$product->featuredPhoto)
-                                    <img src="/store/{{ $product->photos->first()->thumbnail_path}}" alt="Photo" />
+                                    <img src="{{ asset($product->photos->first()->thumbnail_path) }}" alt="Photo" />
                                 @else
                                     N/A
                                 @endif
@@ -118,7 +118,7 @@
                                 $ {{ $product->reduced_price }}
                             @endif
                             <br><br><br>
-                                <form action="/store/cart/add" method="post" name="add_to_cart">
+                                <form action="{{ url('/cart/add')  }}" method="post" name="add_to_cart">
                                     {!! csrf_field() !!}
                                     <input type="hidden" name="product" value="{{$product->id}}" />
                                     <input type="hidden" name="qty" value="1" />

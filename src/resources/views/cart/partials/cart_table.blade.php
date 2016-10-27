@@ -9,12 +9,12 @@
                 <a href="{{ route('show.product', $cart_item->products->product_name) }}">
                     <h6 class="center-on-small-only" id="featured-product-name">{{ $cart_item->products->product_name }}</h6><br>
                     @if ($cart_item->products->photos->count() === 0)
-                        <img src="/store/src/public/images/no-image-found.jpg" alt="No Image Found Tag" id="Product-similar-Image" style="width: 100px; height: 100px;" >
+                        <img src="{{ asset('src/public/images/no-image-found.jpg') }}" alt="No Image Found Tag" id="Product-similar-Image" style="width: 100px; height: 100px;" >
                     @else
                         @if ($cart_item->featuredPhoto)
-                            <img src="/store/{{ $cart_item->featuredPhoto->thumbnail_path }}" alt="Photo ID: {{ $cart_item->featuredPhoto->id }}" style="width: 100px; height: 100px;" />
+                            <img src="{{ asset($cart_item->featuredPhoto->thumbnail_path) }}" alt="Photo ID: {{ $cart_item->featuredPhoto->id }}" style="width: 100px; height: 100px;" />
                         @elseif(!$cart_item->featuredPhoto)
-                            <img src="/store/{{ $cart_item->products->photos->first()->thumbnail_path}}" alt="Photo" style="width: 100px; height: 100px;" />
+                            <img src="{{ asset($cart_item->products->photos->first()->thumbnail_path) }}" alt="Photo" style="width: 100px; height: 100px;" />
                         @else
                             N/A
                         @endif
@@ -23,17 +23,17 @@
             </div>
             <div class="col-sm-2 col-md-2" id="Carts-Sub-Containers">
                 @if($cart_item->products->reduced_price == 0)
-                    <div class="center-on-small-only">PRODUCT PRICE</div> <div class="light-300 black-text medium-500 center-on-small-only" id="Product_Reduced-Price-Cart">${{ $cart_item->products->price }}</div>
+                    <div class="center-on-small-only">PRODUCT PRICE</div> <div class="light-300 black-text medium-500 center-on-small-only" id="Product_Reduced-Price-Cart"> ₹{{ $cart_item->products->price }}</div>
                     <br>
                     <p class="center-on-small-only">ISBN: {{ $cart_item->products->product_sku }}</p>
                 @else
-                    <div class="center-on-small-only">PRODUCT PRICE</div> <div class="green-text medium-500 center-on-small-only" id="Product_Reduced-Price-Cart">${{ $cart_item->products->reduced_price }}</div>
+                    <div class="center-on-small-only">PRODUCT PRICE</div> <div class="green-text medium-500 center-on-small-only" id="Product_Reduced-Price-Cart">₹{{ $cart_item->products->reduced_price }}</div>
                     <br>
                     <p class="center-on-small-only">ISBN: {{ $cart_item->products->product_sku }}</p>
                 @endif
             </div>
             <div class="col-sm-3 col-md-3" id="Carts-Sub-Containers">
-                <form action="/store/cart/update" method="post" class="form-inline">
+                <form action="{{url('/cart/update')}}" method="post" class="form-inline">
                     {!! csrf_field() !!}
                     <input type="hidden" name="product" value="{{$cart_item->products->id}}" />
                     <input type="hidden" name="cart_id" value="{{$cart_item->id}}" />
@@ -55,7 +55,7 @@
             </div>
             <div class="col-sm-2 col-md-2" id="Carts-Sub-Containers">
                 <div class="center-on-small-only">PRODUCT TOTAL</div>
-                <div class="black-text medium-500 center-on-small-only" id="Product_Reduced-Price-Cart">${{$cart_item->total}}</div>
+                <div class="black-text medium-500 center-on-small-only" id="Product_Reduced-Price-Cart"> ₹{{$cart_item->total}}</div>
             </div>
             <div class="col-sm-1 col-md-1 center-on-small-only" id="Carts-Sub-Containers">
                 <a href="{{URL::route('delete_book_from_cart', array($cart_item->id))}}">
@@ -71,7 +71,7 @@
             <i class="material-icons md-18">shopping_cart</i> {{ $count }}
         </div>
         <div class="col-xs-8 col-sm-4 col-md-3">
-            <b>TOTAL: ${{$cart_total}}</b>
+            <b>TOTAL:  ₹{{$cart_total}}</b>
         </div>
     </div>
 

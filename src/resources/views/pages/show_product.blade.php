@@ -47,7 +47,7 @@
                         <h5 class="text-center red-text">Sold Out</h5>
                         <p class="text-center"><b>Available: {{ $product->product_qty }}</b></p>
                     @else
-                        <form action="cart/add" method="post" name="add_to_cart">
+                        <form action="{{ url('/cart/add')}}" method="post" name="add_to_cart">
                             {!! csrf_field() !!}
                             <input type="hidden" name="product" value="{{$product->id}}" />
                             <label>QTY</label>
@@ -101,14 +101,14 @@
                             <a href="{{ route('show.product', $similar->product_name) }}">
                                 @if ($similar->photos->count() === 0)
                                     <p id="Similar-Title">{{ str_limit($similar->product_name, $limit = 28, $end = '...') }}</p>
-                                    <img src="/store/src/public/images/no-image-found.jpg" alt="No Image Found Tag" id="Product-similar-Image">
+                                    <img src="{{ asset('src/public/images/no-image-found.jpg') }}" alt="No Image Found Tag" id="Product-similar-Image">
                                 @else
                                     @if ($similar->featuredPhoto)
                                         <p id="Similar-Title">{{ str_limit($similar->product_name, $limit = 28, $end = '...') }}</p>
-                                        <img src="/store/{{ $similar->featuredPhoto->thumbnail_path }}" alt="Photo ID: {{ $similar->featuredPhoto->id }}" id="Product-similar-Image" />
+                                        <img src="{{ asset($similar->featuredPhoto->thumbnail_path) }}" alt="Photo ID: {{ $similar->featuredPhoto->id }}" id="Product-similar-Image" />
                                     @elseif(!$similar->featuredPhoto)
                                         <p id="Similar-Title">{{ $similar->product_name }}</p>
-                                        <img src="/store/{{ $similar->photos->first()->thumbnail_path}}" alt="Photo" id="Product-similar-Image" />
+                                        <img src="{{ asset($similar->photos->first()->thumbnail_path) }}" alt="Photo" id="Product-similar-Image" />
                                     @else
                                         N/A
                                     @endif
